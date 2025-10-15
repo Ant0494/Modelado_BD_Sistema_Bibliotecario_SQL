@@ -185,3 +185,10 @@ El Diagrama Entidad-Relación (DER) representa gráficamente el Modelo Lógico d
 La imagen a continuación ilustra las tablas y sus conexiones.
 
 ![ProyectoBD](https://github.com/user-attachments/assets/c53ea37b-a629-4610-91a6-02dec9f601ff)
+
+## Diagrama de la Base de Datos (Implementación Física)
+
+**Objetivo:** Este diagrama generado por SQL Server muestra la implementación física de las tablas y la forma en que el motor de base de datos reconoce las claves primarias (PK) y foráneas (FK) para asegurar la integridad referencial.
+
+<img width="1352" height="737" alt="image" src="https://github.com/user-attachments/assets/d10dd738-b5d1-486c-96fb-7d742271ee79" />
+
