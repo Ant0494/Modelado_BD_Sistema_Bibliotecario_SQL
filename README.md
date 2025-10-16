@@ -1,8 +1,6 @@
 # Modelado de Base de Datos para Sistema de Préstamos Bibliotecarios 
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/273b7735-e08e-412a-9d25-d46a503b20af" alt="Diagrama de Base de Datos" width="500"/>
-</p>
+![image alt](https://github.com/Ant0494/Modelado_BD_Sistema_Bibliotecario_SQL/blob/e909c3b2bafd71170daca442bdf469e7ed982daa/assets/Biblioteca.png?raw=true
 
 
 ## Contexto y Visión General del Proyecto
