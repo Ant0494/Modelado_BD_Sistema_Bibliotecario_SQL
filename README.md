@@ -1,6 +1,8 @@
 # Modelado de Base de Datos para Sistema de Préstamos Bibliotecarios 
 
-![image alt](https://github.com/Ant0494/Modelado_BD_Sistema_Bibliotecario_SQL/blob/e909c3b2bafd71170daca442bdf469e7ed982daa/assets/Biblioteca.png?raw=true
+<p align="center">
+  <img src="https://github.com/Ant0494/Modelado_BD_Sistema_Bibliotecario_SQL/blob/e909c3b2bafd71170daca442bdf469e7ed982daa/assets/Biblioteca.png?raw=true" alt="Diagrama de Base de Datos SQL" width="500"/>
+</p>
 
 
 ## Contexto y Visión General del Proyecto
@@ -56,12 +58,12 @@ Explora cada fase del ciclo de diseño, desde los requisitos del negocio hasta l
 ```sql
 SELECT * FROM USUARIO;
 ```
-<img width="621" height="251" alt="image" src="https://github.com/user-attachments/assets/30c59328-c474-4788-9ad6-ef3ee3961766" />
+<img src="https://github.com/Ant0494/Modelado_BD_Sistema_Bibliotecario_SQL/blob/c1714f232f899b615b651219ad1eb70b821a56b5/assets/fromUSUARIO.png?raw=true" alt="Resultado de SELECT * FROM USUARIO"/>
 
 ```sql
 SELECT * FROM LIBRO;
 ```
-<img width="657" height="265" alt="image" src="https://github.com/user-attachments/assets/e77e2751-8a67-4bec-bd3f-297cd97daafe" />
+<img src="https://github.com/Ant0494/Modelado_BD_Sistema_Bibliotecario_SQL/blob/c1714f232f899b615b651219ad1eb70b821a56b5/assets/fromLIBRO.png?raw=true" alt="Resultado de SELECT * FROM LIBRO"/>
 
 
 ```sql
