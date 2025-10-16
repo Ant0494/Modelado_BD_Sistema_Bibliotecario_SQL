@@ -604,23 +604,58 @@ EXEC ObtenerLibrosNoDisponibles
 
 
 
-CREATE PROCEDURE GenerarMulta
-    @CodDetalle INT,
-    @CodMotivo INT,
-    @Monto INT,
-    @FechaGeneracion DATE,
-    @EstadoMulta INT
+CREATE PROCEDURE VerificarDevolucionYGenerarMulta
+    @CodDetalle INT
 AS
 BEGIN
-    INSERT INTO MULTA (CODESTADO_MULTA, CODMOTIVO_MULTA, CODDETALLE, MONTO, FECHAGENERACION)
-    VALUES (@EstadoMulta, @CodMotivo, @CodDetalle, @Monto, @FechaGeneracion);
+    -- 1. Declaración de Variables
+    DECLARE @FechaDevolucionReal DATE, 
+            @FechaEntrega DATE, 
+            @DiasRetraso INT,
+            @MontoPorDia INT = 20, -- Regla de negocio: S/. 20 fijos por día de retraso.
+            @MontoTotal INT,
+            @CodMotivoRetraso INT = 1, -- Asumimos que 1 = Retraso en tu tabla MOTIVO_MULTA
+            @CodPrestamo INT;
+
+    -- 2. Obtener las fechas clave y el CodPrestamo
+    SELECT @FechaDevolucionReal = FECHADEVOLUCIONREAL, 
+           @CodPrestamo = CODPRESTAMO 
+    FROM DETALLE_PRESTAMO 
+    WHERE CODDETALLE = @CodDetalle;
+
+    SELECT @FechaEntrega = FECHAENTREGA 
+    FROM PRESTAMO 
+    WHERE CODPRESTAMO = @CodPrestamo;
+    
+    -- 3. Lógica Condicional: Verificar Retraso
+    IF @FechaDevolucionReal > @FechaEntrega
+    BEGIN
+        -- Cálculo de días y monto total
+        SET @DiasRetraso = DATEDIFF(day, @FechaEntrega, @FechaDevolucionReal);
+        SET @MontoTotal = @DiasRetraso * @MontoPorDia;
+
+        -- 4. Generar Registro de Multa
+        INSERT INTO MULTA (CODESTADO_MULTA, CODMOTIVO_MULTA, CODDETALLE, MONTO, FECHAGENERACION)
+        VALUES (
+            1, -- Asumimos que 1 = Pendiente
+            @CodMotivoRetraso, -- 1 = Multa por Retraso
+            @CodDetalle,
+            @MontoTotal,
+            GETDATE() -- Fecha actual del sistema
+        );
+
+        -- Mensaje de confirmación
+        PRINT '¡MULTA GENERADA! El libro fue devuelto con ' + 
+               CAST(@DiasRetraso AS NVARCHAR) + ' días de retraso.';
+        PRINT 'Monto total de la multa: S/. ' + CAST(@MontoTotal AS NVARCHAR);
+    END
+    ELSE
+    BEGIN
+        PRINT 'El libro fue devuelto a tiempo. No se genera multa.';
+    END
 END;
 
-EXEC GenerarMulta @CodDetalle=11,
-    @CodMotivo=2,
-    @Monto=40,
-    @FechaGeneracion='2024-12-19',
-    @EstadoMulta=1;
+EXEC VerificarDevolucionYGenerarMulta @CodDetalle =2
 
 
 
@@ -639,10 +674,6 @@ BEGIN
 END;
 
 EXEC ObtenerMultasUsuario @CodUsuario=1;
-
-
-
-
 
 
 
